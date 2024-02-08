@@ -27,7 +27,7 @@ interface RegisterUseCaseResponse{
                 throw new UserAlreadyExistError()
             }
         
-            // const prismaUsersRepository= new PrismaUserRepository()
+    
                const user= await this.usersRepository.create({
                     name,
                     email,

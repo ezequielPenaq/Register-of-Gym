@@ -7,7 +7,28 @@ import { UserAlreadyExistError } from './erros/user-already-exist'
 
 describe('Register use case', ()=>{
 
-it('Should hash user password upon registration', async () => {
+    it('Should be able to register', async () => {
+        const usersRepository= new InMemoryUserRepository
+        const registerUseCase = new RegisterUseCase(usersRepository)
+
+            const {user}= await registerUseCase.execute({
+                name:'Arnaldo ',
+                email:'SOCORRO@exemple.com',
+                password:'123456',
+            })
+            
+                expect(user.id).toEqual(expect.any(String))
+        
+    })
+
+
+
+
+
+
+
+
+    it('Should hash user password upon registration', async () => {
     const usersRepository= new InMemoryUserRepository
     const registerUseCase = new RegisterUseCase(usersRepository)
    
@@ -29,32 +50,26 @@ it('Should hash user password upon registration', async () => {
 
 })
 
-it('Should not to be able to register with same email twice ', async () => {
+it('should not be able to register with same email twice',async () => {
     const usersRepository= new InMemoryUserRepository
     const registerUseCase = new RegisterUseCase(usersRepository)
 
-    const email = 'Guts@exemple.com'
-   
+        const email ='SOCORRO@exemple.com'
 
-    await registerUseCase.execute({
-    name:'Arnaldo ',
-    email,
-    password:'123456',
-
-})
-
-expect(()=>{
-    registerUseCase.execute({
-        name:'Arnaldo ',
-        email,
-        password:'123456',
+        await registerUseCase.execute({
+            name:'Arnaldo',
+            email,
+            password:'123456',
         })
 
-    }).rejects.toBeInstanceOf(UserAlreadyExistError)
-
-})
-  
-
-
+        await expect(
+            registerUseCase.execute({
+                name: 'Arnaldo',
+                email,
+                password: '123456'
+            })
+        ).rejects.toBeInstanceOf(UserAlreadyExistError);
+    });
+    
 
 
