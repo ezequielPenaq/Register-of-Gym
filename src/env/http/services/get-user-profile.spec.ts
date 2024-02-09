@@ -46,7 +46,7 @@ describe('Get User profile  use case', ()=>{
             password_hash: await hash('123456',6),
         })
         
-        expect(()=>sut.execute({
+        await expect(()=>sut.execute({
         userID:'Non-existing-id'    
         
         })
