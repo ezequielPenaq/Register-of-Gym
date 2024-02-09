@@ -10,7 +10,7 @@ export class InMemoryUserRepository implements usersRepository{
     findById(id: string): Promise<{ id: string; name: string; email: string; password_hash: string; created_at: Date; } | null> {
       throw new Error("Method not implemented.");
     } 
-    async findById(id: string){
+    async findByID(id: string){
       const user =this.items.find(item=>item.id===id)
 
       if(!user){
