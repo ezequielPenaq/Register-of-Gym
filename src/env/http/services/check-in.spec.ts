@@ -23,8 +23,8 @@ describe('Check-in use case', ()=>{
             title:'Gym BodySteel',
             description:'',
             phone:'',
-            latitude: new Decimal(0) ,
-            longitude: new Decimal(0) ,
+            latitude: new Decimal(-22.7438447) ,
+            longitude: new Decimal(-47.3291217) ,
         })
 
 
@@ -43,8 +43,8 @@ describe('Check-in use case', ()=>{
             const {checkIn}= await sut.execute({
              gymId: 'gym-01',
              userId: 'user-01',
-             userLatitude: 0,
-             userLongitude:0,
+             userLatitude: -22.7438447,
+             userLongitude:-47.3291217,
             })
             
                 expect(checkIn.id).toEqual(expect.any(String))
@@ -58,8 +58,8 @@ describe('Check-in use case', ()=>{
         await sut.execute({
          gymId: 'gym-01',
          userId: 'user-01',
-         userLatitude: 0,
-         userLongitude:0,
+         userLatitude: -22.7438447,
+         userLongitude:-47.3291217,
         })
         
         
@@ -68,37 +68,57 @@ describe('Check-in use case', ()=>{
             await expect(()=> sut.execute({
                 gymId: 'gym-01',
                 userId: 'user-01',
-                userLatitude: 0,
-                userLongitude:0,
+                userLatitude: -22.7438447,
+                userLongitude:-47.3291217,
                })).rejects.toBeInstanceOf(Error)
     
 })
 
 it('Should not be able to check in twice but in different days', async () => {
+    vi.setSystemTime(new Date(2022, 0, 22, 8, 0, 0));
 
-    vi.setSystemTime(new Date(2022,0,22,8,0,0))
-  
     await sut.execute({
-     gymId: 'gym-01',
-     userId: 'user-01',
-     userLatitude: 0,
-     userLongitude:0,
-    })
-    
-    vi.setSystemTime(new Date(2022,0,23,8,0,0))
-
-
-    const{ checkIn} =await sut.execute({
         gymId: 'gym-01',
         userId: 'user-01',
-        userLatitude: 0,
-        userLongitude:0,
-     })
+        userLatitude: -22.7438447,
+        userLongitude: -47.3291217,
+    });
 
-     expect(checkIn.id).toEqual(expect.any(string))
+    vi.setSystemTime(new Date(2022, 0, 23, 8, 0, 0));
+
+    const { checkIn } = await sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+        userLatitude: -22.7438447,
+        userLongitude: -47.3291217,
+    });
+
+    expect(checkIn.id).toEqual(expect.any(String));
    
 
     })
+
+    it('Should not be able to check in on distant gym', async () => {
+        
+        gymsRepository.items.push({
+            id:'gym-02',
+            title:'Gym BodySteel',
+            description:'',
+            phone:'',
+            latitude: new Decimal(-22.7004425) ,
+            longitude: new Decimal(-47.2754596) ,
+        })
+
+
+            await expect(()=>sut.execute({
+                gymId: 'gym-02',
+                userId: 'user-01',
+                userLatitude: -22.7438447,                                              
+                userLongitude:-47.3291217,
+               })).rejects.toBeInstanceOf(Error)
+
+
+})
  });
     
 
