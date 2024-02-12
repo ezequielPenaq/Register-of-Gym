@@ -3,6 +3,8 @@ import { CheckInsRepository } from "@/env/repositories/checkins-repository";
 import { GymsRepository } from "@/env/repositories/gyms-repository";
 import { ResourceNotFound } from "./erros/resource-not-found";
 import { getDistanceBetweenCordinates } from "@/utils/get-distance-between-coordinates";
+import { MaxNumberOfCheckinsError } from "./erros/max-number-of-checkins-errors";
+import { MaxDistanceError } from "./erros/max-distance-error";
 
 
 interface CheckInUseCaseRequest {
@@ -45,7 +47,7 @@ export class CheckInUseCase {
                 const MAX_DISTANCE_In_Kilometers=0.1
 
                 if(distance>MAX_DISTANCE_In_Kilometers){
-                    throw new Error()
+                    throw new MaxDistanceError()
                 }
 
             
@@ -55,7 +57,7 @@ export class CheckInUseCase {
         )
 
         if(checkInOnsameDay){
-            throw new Error
+            throw new MaxNumberOfCheckinsError()
         }
 
 

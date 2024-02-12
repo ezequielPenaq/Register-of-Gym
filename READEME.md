@@ -12,7 +12,7 @@ GymPass style app.
 - [] Deve ser possivel buscas academias pelo nome;
 - [x] Deve ser possivel o usuario realizar check-ins numa academia;
 - [] Deve ser possivel validar o check-in de um usuario;
-- [] Deve ser possivel cadastrar uma academia.
+- [x] Deve ser possivel cadastrar uma academia.
 
 
 
