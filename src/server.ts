@@ -6,7 +6,7 @@ app.listen({
     port:env.PORT,
 
 }).then(()=>{
-    console.log(' HTTP server running')
+    console.log(' HTTP server running, tudo certo até aqui!')
 })
 
 
