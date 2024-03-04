@@ -1,7 +1,7 @@
 import {FastifyRequest,FastifyReply} from 'fastify'
 import {z} from 'zod'
-import { InvelidCredentialsError } from '../services/erros/invelid-credentials-error'
-import { makeAuthenticateUseCase } from '../services/factories/make-authenticate-use-case'
+import { InvelidCredentialsError } from '../../services/erros/invelid-credentials-error'
+import { makeAuthenticateUseCase } from '../../services/factories/make-authenticate-use-case'
 
 
 export  async function authenticate (request:FastifyRequest,reply:FastifyReply){
