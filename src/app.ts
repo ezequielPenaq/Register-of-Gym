@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
 import { gymsRoutes } from "./env/http/controllers/users/gym/routes";
+import { checkInsRoutes } from "./env/http/controllers/check-Ins/route";
 
 
 
@@ -15,6 +16,8 @@ app.register(fastifyJwt,{
 
 app.register(userRoutes)
 app.register(gymsRoutes)
+app.register(checkInsRoutes)
+
 
 
 app.setErrorHandler((error,_,reply)=>{

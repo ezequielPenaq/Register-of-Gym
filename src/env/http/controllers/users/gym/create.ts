@@ -4,7 +4,7 @@ import {z} from 'zod'
 import { makeCreateGymUseCase } from '@/env/http/services/factories/make-create-gym-use-case'
 
 
-export  async function register (request:FastifyRequest,reply:FastifyReply){
+export  async function create (request:FastifyRequest,reply:FastifyReply){
     const createGymBodySchema=z.object({
         title: z.string(),
         description: z.string().nullable(),
